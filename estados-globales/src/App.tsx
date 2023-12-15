@@ -8,7 +8,7 @@ function App() {
   return (
     <TaskProvider>
       <NewTask />
-      {/* <TaskList /> */}
+      <TaskList />
     </TaskProvider>
   )
 }

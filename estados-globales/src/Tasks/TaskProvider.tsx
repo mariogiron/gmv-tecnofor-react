@@ -1,4 +1,4 @@
-import { createContext, useReducer, Dispatch, useContext } from "react";
+import { createContext, useReducer, Dispatch, useContext, ReactNode } from "react";
 
 export interface Task {
     id: string;
@@ -11,7 +11,7 @@ type Actions =
     | { type: 'ADD_TASK', data: Task }
     | { type: 'REMOVE_TASK', data: string } // Eliminamos con el ID
 type State = Array<Task>;
-type TaskProviderProps = { children: JSX.Element };
+type TaskProviderProps = { children: ReactNode };
 
 // Reducer
 const reducer = (state: State, action: Actions) => {
@@ -19,6 +19,9 @@ const reducer = (state: State, action: Actions) => {
     switch (action.type) {
         case 'ADD_TASK': {
             return [...state, action.data]
+        }
+        case 'REMOVE_TASK': {
+            return state.filter(item => item.id !== action.data);
         }
     }
     return state;
@@ -36,7 +39,6 @@ export const useStateContext = () => {
 export const useDispatchContext = () => {
     return useContext(DispatchContext);
 }
-
 
 const TaskProvider = ({ children }: TaskProviderProps) => {
 
